@@ -1,6 +1,6 @@
-package com.example.jehunonboarding.repository;
+package com.example.repository;
 
-import com.example.jehunonboarding.domain.Users;
+import com.example.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<Users, Integer> {

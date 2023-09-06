@@ -1,4 +1,4 @@
-package com.example.jehunonboarding.controller.response;
+package com.example.controller.response;
 
 import lombok.Data;
 

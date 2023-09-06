@@ -1,6 +1,6 @@
-package com.example.jehunonboarding.controller.response;
+package com.example.controller.response;
 
-import com.example.jehunonboarding.domain.JobPosting;
+import com.example.domain.JobPosting;
 import lombok.Data;
 
 import java.util.List;

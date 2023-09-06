@@ -1,7 +1,6 @@
-package com.example.jehunonboarding.controller.request;
+package com.example.controller.request;
 
-import com.example.jehunonboarding.domain.JobPostingRegisterInfo;
-
+import com.example.domain.JobPostingRegisterInfo;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

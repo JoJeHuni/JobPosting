@@ -1,20 +1,20 @@
-package com.example.jehunonboarding.controller;
+package com.example.controller;
 
-import com.example.jehunonboarding.controller.request.*;
-import com.example.jehunonboarding.controller.response.CommonResponse;
-import com.example.jehunonboarding.controller.response.JobPostingFindDetailResponse;
-import com.example.jehunonboarding.controller.response.JobPostingsSearchResponse;
-import com.example.jehunonboarding.domain.JobPosting;
-import com.example.jehunonboarding.domain.JobPostingEditInfo;
-import com.example.jehunonboarding.domain.JobPostingRemoveInfo;
-import com.example.jehunonboarding.domain.JobPostingService;
-import jakarta.validation.Valid;
+import com.example.controller.request.JobPostingApplyRequest;
+import com.example.controller.request.JobPostingRegisterRequest;
+import com.example.controller.response.CommonResponse;
+import com.example.controller.response.JobPostingFindDetailResponse;
+import com.example.controller.response.JobPostingsSearchResponse;
+import com.example.domain.JobPosting;
+import com.example.domain.JobPostingEditInfo;
+import com.example.domain.JobPostingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,11 +49,17 @@ public class JobPostingController {
 
     @GetMapping("/v1/job-postings/{jobPostingId}")
     public ResponseEntity<JobPostingFindDetailResponse> findDetail(@PathVariable int jobPostingId) {
-        return new ResponseEntity(new JobPostingFindDetailResponse(), HttpStatus.OK);
+        JobPosting jobPosting = jobPostingService.findDetail(jobPostingId).get(0);
+        List<Integer> otherJobPostings = jobPostingService.findOtherJobPostings(jobPosting.getCompanyId(), jobPostingId);
+
+        JobPostingFindDetailResponse response = new JobPostingFindDetailResponse(jobPosting, otherJobPostings);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/v1/job-postings/{jobPostingId}/apply")
-    public ResponseEntity<CommonResponse> apply(@RequestBody JobPostingApplyRequest request) {
+    public ResponseEntity<CommonResponse> apply(@PathVariable int jobPostingId, @RequestBody JobPostingApplyRequest request) {
+        jobPostingService.apply(jobPostingId, request);
         return new ResponseEntity(new CommonResponse(true), HttpStatus.OK);
     }
 

@@ -1,6 +1,6 @@
-package com.example.jehunonboarding.domain;
+package com.example.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "company")
